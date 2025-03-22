@@ -123,7 +123,7 @@ export default function Home() {
     if (minPower) formData.append("minPower", minPower);
 
     try {
-      const response = await fetch("https://javachainring-production.up.railway.app/api/analyze", {
+      const response = await fetch("http://localhost:8080/api/analyze", {
         method: "POST",
         body: formData,
       });
@@ -324,6 +324,37 @@ export default function Home() {
               </div>
             </div>
           )}
+        {/* Short Explanation Section */}
+        <div className="bg-gray-50 p-4 rounded-lg shadow-md mt-6">
+          <h3 className="text-xl font-bold mb-2 text-center">Gear Zone Calculation</h3>
+          <p className="text-gray-700">
+            Gears are classified by their cassette position:
+          </p>
+          <ul className="list-disc pl-5 text-gray-700">
+            <li>
+              <strong>Red Zone:</strong> First two or last two cogs (poor chain alignment).
+            </li>
+            <li>
+              <strong>Orange Zone:</strong> Third from each end (moderate alignment).
+            </li>
+            <li>
+              <strong>Green Zone:</strong> All others (optimal alignment).
+            </li>
+          </ul>
+          <p className="text-gray-700 mt-2">
+            This method is based on a study about cross-chaining and efficiency. Learn more&nbsp;
+            <a
+              href="https://cdn.shopify.com/s/files/1/0726/7542/6606/files/cross-chaining-and-ring-size-report.pdf?v=1687253624"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 underline"
+            >
+              here
+            </a>.
+          </p>
+        </div>
+
+
         </div>
 
         {/* NEW SECTION: Gear Usage Visualization */}
