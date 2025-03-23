@@ -162,20 +162,20 @@ export default function Home() {
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Form & Instructions Section */}
         <div className="bg-white shadow-lg rounded-xl p-6">
-          <h1 className="text-3xl font-bold text-center mb-4">Gear Analysis Tool</h1>
+          <h1 className="text-3xl font-bold text-center mb-4 text-gray-700">Gear Analysis Tool</h1>
           <p className="text-center text-gray-600 mb-4">
             Upload a FIT file and provide chainring/cassette details to analyze your ride gear usage.
           </p>
           
           {/* Instructions */}
           <div className="mb-4 p-4 border rounded bg-gray-50">
-            <h2 className="text-xl font-semibold mb-2">Input Instructions</h2>
+            <h2 className="text-xl font-semibold mb-2 text-gray-500">Input Instructions</h2>
             <ul className="list-disc pl-5 text-gray-700 space-y-1">
               <li>
-                <strong>Front Chainring (1st):</strong> Number of teeth on your front chainring. <em>Example: 53</em>.
+                <strong>Big Chainring (1st):</strong> Number of teeth on your front chainring. <em>Example: 53</em>.
               </li>
               <li>
-                <strong>Rear Chainring (2nd):</strong> Number of teeth on your small chainring. <em>Example: 39</em>.
+                <strong>Small Chainring (2nd):</strong> Number of teeth on your small chainring. <em>Example: 39</em>.
               </li>
               <li>
                 <strong>Cassette (3rd):</strong> Choose from the list.
@@ -212,7 +212,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <div>
               <label className="block text-gray-700 font-medium mb-1">
-                Front Chainring (e.g. 53)
+                Big Chainring (e.g. 53)
               </label>
               <input
                 type="text"
@@ -223,7 +223,7 @@ export default function Home() {
             </div>
             <div>
               <label className="block text-gray-700 font-medium mb-1">
-                Rear Chainring (e.g. 39)
+                Small Chainring (e.g. 39)
               </label>
               <input
                 type="text"
@@ -278,7 +278,6 @@ export default function Home() {
             disabled={loading}
           >
             {loading ? (
-              // Use a small spinner if you'd like
               <ClipLoader color="#fff" size={20} />
             ) : (
               "Upload & Analyze"
@@ -289,7 +288,7 @@ export default function Home() {
 
         {/* Gear Usage Summary (Text-Based) */}
         <div className="bg-white shadow-lg rounded-xl p-6 overflow-x-auto">
-          <h2 className="text-2xl font-bold text-center mb-4">Gear Usage Summary</h2>
+          <h2 className="text-2xl font-bold text-center mb-4 text-gray-700">Gear Usage Summary</h2>
           {formattedOutput.length > 0 ? (
             <div className="space-y-2">
               {formattedOutput.map((line, index) => (
@@ -307,7 +306,7 @@ export default function Home() {
           {/* Zone Summary (Text-Based) */}
           {zoneSummary && (
             <div className="mt-6 mx-auto max-w-md p-4 bg-gray-100 rounded">
-              <h3 className="text-xl font-bold mb-2 text-center">Zone Summary</h3>
+              <h3 className="text-xl font-bold mb-2 text-center text-gray-700">Zone Summary</h3>
               <div className="space-y-1 text-gray-700">
                 <p>
                   🔴 Red Zone: {zoneSummary.red_zone.time} ({zoneSummary.red_zone.percentage})
@@ -326,7 +325,7 @@ export default function Home() {
           )}
         {/* Short Explanation Section */}
         <div className="bg-gray-50 p-4 rounded-lg shadow-md mt-6">
-          <h3 className="text-xl font-bold mb-2 text-center">Gear Zone Calculation</h3>
+          <h3 className="text-xl font-bold mb-2 text-center text-gray-700">Gear Zone Calculation</h3>
           <p className="text-gray-700">
             Gears are classified by their cassette position:
           </p>
@@ -357,7 +356,7 @@ export default function Home() {
 
         </div>
 
-        {/* NEW SECTION: Gear Usage Visualization */}
+        {/* Gear Usage Visualization */}
         {gearAnalysis.length > 0 && (
           <div className="bg-white shadow-lg rounded-xl p-6">
             <h2 className="text-2xl font-bold text-center mb-4">Gear Usage Visualizations</h2>
