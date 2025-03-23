@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Toaster } from "react-hot-toast";
-import { Analytics } from '@vercel/analytics/react';
+// import { Analytics } from '@vercel/analytics/react';
 
 import "./globals.css";
 
@@ -32,7 +32,7 @@ export default function RootLayout({
       >
         {children}
         <Toaster position="top-right" reverseOrder={false} />
-        <Analytics />
+        {/* < Analytics /> */}
       </body>
     </html>
   );
