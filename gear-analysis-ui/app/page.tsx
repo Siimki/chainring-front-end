@@ -169,7 +169,7 @@ export default function Home() {
           {/* Instructions */}
           <div className="mb-4 p-4 border rounded bg-gray-50">
             <h2 className="text-xl font-semibold mb-2 text-gray-500">Input Instructions</h2>
-            <ul className="list-disc pl-5 text-gray-700 space-y-1">
+            <ul className="list-disc pl-5 text-gray-700 space-y-1x">
               <li>
                 <strong>Big Chainring (1st):</strong> Number of teeth on your front chainring. <em>Example: 53</em>.
               </li>
@@ -217,7 +217,7 @@ export default function Home() {
                 type="text"
                 value={bigChainring}
                 onChange={(e) => setBigChainring(e.target.value)}
-                className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className="w-full text-gray-700 p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
               />
             </div>
             <div>
@@ -228,7 +228,7 @@ export default function Home() {
                 type="text"
                 value={smallChainring}
                 onChange={(e) => setSmallChainring(e.target.value)}
-                className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className="w-full p-2 text-gray-700 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
               />
             </div>
             <div>
@@ -238,7 +238,7 @@ export default function Home() {
               <select
                 value={cassette}
                 onChange={(e) => setCassette(e.target.value)}
-                className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className="w-full p-2 text-gray-700 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
               >
                 {cassetteOptions.map((option) => (
                   <option key={option.value} value={option.value}>
@@ -255,7 +255,7 @@ export default function Home() {
                 type="text"
                 value={minPower}
                 onChange={(e) => setMinPower(e.target.value)}
-                className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className="w-full p-2 border text-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
               />
             </div>
             <div>
@@ -266,14 +266,14 @@ export default function Home() {
                 type="text"
                 value={minCadence}
                 onChange={(e) => setMinCadence(e.target.value)}
-                className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className="w-full p-2 border text-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
               />
             </div>
           </div>
           <div className="flex justify-center mt-4">
           <button
             onClick={handleUpload}
-            className="p-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition duration-300 disabled:opacity-50 flex justify-center items-center"
+            className="p-2 bg-blue-600  text-white rounded hover:bg-blue-700 transition duration-300 disabled:opacity-50 flex justify-center items-center"
             disabled={loading}
           >
             {loading ? (
