@@ -128,7 +128,7 @@ export default function Home() {
     if (minPower) formData.append("minPower", minPower);
 
     try {
-      const response = await fetch("http://localhost:8080/api/analyze", {        method: "POST",
+      const response = await fetch("https://javachainring-production.up.railway.app/api/analyze", {        method: "POST",
       body: formData,
       });
 
