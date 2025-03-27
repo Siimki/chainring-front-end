@@ -13,6 +13,9 @@ import {
 } from "chart.js";
 import { toast } from "react-hot-toast";
 import { ClipLoader } from "react-spinners"; // a small spinner library (optional)
+import GearUsageTable from "./summaryTable";
+import CassetteData from "./CassetteData"; 
+
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -85,6 +88,7 @@ export default function Home() {
   const [cassette, setCassette] = useState("12shimano34");
   const [minCadence, setMinCadence] = useState("0");
   const [minPower, setMinPower] = useState("0");
+  const [oneBySetup, setOneBySetup] = useState(false);
   const [loading, setLoading] = useState(false);
 
   // Store both raw gear data (for chart) and text summary lines
@@ -119,11 +123,12 @@ export default function Home() {
     formData.append("bigChainring", bigChainring);
     formData.append("smallChainring", smallChainring);
     formData.append("cassette", cassette);
+    formData.append("oneBySetup", oneBySetup.toString());
     if (minCadence) formData.append("minCadence", minCadence);
     if (minPower) formData.append("minPower", minPower);
 
     try {
-      const response = await fetch("https://javachainring-production.up.railway.app/api/analyze", {        method: "POST",
+      const response = await fetch("http://localhost:8080/api/analyze", {        method: "POST",
       body: formData,
       });
 
@@ -269,6 +274,17 @@ export default function Home() {
                 className="w-full p-2 border text-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
               />
             </div>
+            <div>
+              <label className="block text-gray-700 font-medium mb-1">
+                Is it 1x setup? (optional, default 2xSetup)
+              </label>
+              <input
+                type="checkbox"
+                checked={oneBySetup}
+                onChange={(e) => setOneBySetup(e.target.checked)}
+                className="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-400"
+              />
+            </div>
           </div>
           <div className="flex justify-center mt-4">
           <button
@@ -324,36 +340,48 @@ export default function Home() {
           )}
         {/* Short Explanation Section */}
         <div className="bg-gray-50 p-4 rounded-lg shadow-md mt-6">
-          <h3 className="text-xl font-bold mb-2 text-center text-gray-700">Gear Zone Calculation</h3>
-          <p className="text-gray-700">
-            Gears are classified by their cassette position:
-          </p>
-          <ul className="list-disc pl-5 text-gray-700">
-            <li>
-              <strong>Red Zone:</strong> First two or last two cogs (poor chain alignment).
-            </li>
-            <li>
-              <strong>Orange Zone:</strong> Third from each end (moderate alignment).
-            </li>
-            <li>
-              <strong>Green Zone:</strong> All others (optimal alignment).
-            </li>
-          </ul>
-          <p className="text-gray-700 mt-2">
-            This method is based on a study about cross-chaining and efficiency. Learn more&nbsp;
-            <a
-              href="https://cdn.shopify.com/s/files/1/0726/7542/6606/files/cross-chaining-and-ring-size-report.pdf?v=1687253624"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 underline"
-            >
-              here
-            </a>.
-          </p>
-        </div>
+        <h3 className="text-xl font-bold mb-2 text-center text-gray-700">Gear Zone Classification</h3>
+        <p className="text-gray-700">
+          Gears are grouped into zones based on their alignment and efficiency:
+        </p>
+        <ul className="list-disc pl-5 text-gray-700">
+          <li>
+            <strong>Red Zone:</strong> Extreme cross-chaining positions (worst efficiency).
+          </li>
+          <li>
+            <strong>Orange Zone:</strong> Near extremes of the cassette. Acceptable but not ideal.
+          </li>
+          <li>
+            <strong>Green Zone:</strong> Middle gears with good chain alignment. Most efficient for drivetrain performance.
+          </li>
+        </ul>
+        <p className="text-gray-700 mt-2">
+          Logic adapts based on 1x or 2x setups and cassette size. Based on&nbsp;
+          <a
+            href="https://cdn.shopify.com/s/files/1/0726/7542/6606/files/cross-chaining-and-ring-size-report.pdf?v=1687253624"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-600 underline"
+          >
+            this study on cross-chaining and drivetrain losses
+          </a>.
+        </p>
+      </div>
 
 
+
         </div>
+        {gearAnalysis.length > 0 ? (
+          <GearUsageTable
+            gearData={gearAnalysis}
+            cassetteTeeth={CassetteData[cassette]} // make sure CassetteData is imported
+            isOneBySetup={oneBySetup}
+          />
+        ) : (
+          <p className="text-gray-500 text-center">
+            Your gear usage summary will appear here after analysis.
+          </p>
+        )}
 
         {/* Gear Usage Visualization */}
         {gearAnalysis.length > 0 && (
