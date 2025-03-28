@@ -167,7 +167,6 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-gradient-to-r from-blue-100 to-purple-200 p-4">
       <div className="max-w-7xl mx-auto space-y-6">
-        Form & Instructions Section
         <div className="bg-white shadow-lg rounded-xl p-6">
           <h1 className="text-3xl font-bold text-center mb-4 text-gray-700">Gear Analysis Tool</h1>
           <p className="text-center text-gray-600 mb-4">
