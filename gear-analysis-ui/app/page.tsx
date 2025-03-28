@@ -14,7 +14,8 @@ import {
 import { toast } from "react-hot-toast";
 import { ClipLoader } from "react-spinners"; // a small spinner library (optional)
 import GearUsageTable from "./summaryTable";
-import CassetteData from "./CassetteData"; 
+import CassetteData from "./CassetteData";
+import Explanation from "./explanation"; 
 
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
@@ -128,7 +129,8 @@ export default function Home() {
     if (minPower) formData.append("minPower", minPower);
 
     try {
-      const response = await fetch("https://javachainring-production.up.railway.app/api/analyze", {        method: "POST",
+      const response = await fetch("http://localhost:8080/api/analyze", {        method: "POST",
+      // const response = await fetch("https://javachainring-production.up.railway.app/api/analyze", {        method: "POST",
       body: formData,
       });
 
@@ -164,7 +166,7 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-gradient-to-r from-blue-100 to-purple-200 p-4">
       <div className="max-w-7xl mx-auto space-y-6">
-        {/* Form & Instructions Section */}
+        Form & Instructions Section
         <div className="bg-white shadow-lg rounded-xl p-6">
           <h1 className="text-3xl font-bold text-center mb-4 text-gray-700">Gear Analysis Tool</h1>
           <p className="text-center text-gray-600 mb-4">
@@ -176,19 +178,22 @@ export default function Home() {
             <h2 className="text-xl font-semibold mb-2 text-gray-500">Input Instructions</h2>
             <ul className="list-disc pl-5 text-gray-700 space-y-1x">
               <li>
-                <strong>Big Chainring (1st):</strong> Number of teeth on your front chainring. <em>Example: 53</em>.
+                <strong>Big Chainring:</strong> Big chainring size.
               </li>
               <li>
-                <strong>Small Chainring (2nd):</strong> Number of teeth on your small chainring. <em>Example: 39</em>.
+                <strong>Small Chainring:</strong> Small chainring size.
               </li>
               <li>
-                <strong>Cassette (3rd):</strong> Choose from the list.
+                <strong>Cassette:</strong> Choose from the list.
               </li>
               <li>
-                <strong>Min Power (4th, optional):</strong> You can leave it as 0 if not applicable.
+                <strong>Min Power:</strong> If you want to have data only where power is higher than 100 watts, use 100 as value.
               </li>
               <li>
-                <strong>Min Cadence (5th, optional):</strong> You can leave it as 0 if not applicable.
+                <strong>Min Cadence:</strong> If you want to have data only where cadence is higher than 20 rpm, use 20 as value. 
+              </li>
+              <li>
+                <strong>1 x setup:</strong> Add your chainring size to big chainring field.
               </li>
             </ul>
           </div>
@@ -276,14 +281,17 @@ export default function Home() {
             </div>
             <div>
               <label className="block text-gray-700 font-medium mb-1">
-                Is it 1x setup? (optional, default 2xSetup)
+                1x Setup? (optional, default is 2x)
               </label>
-              <input
-                type="checkbox"
-                checked={oneBySetup}
-                onChange={(e) => setOneBySetup(e.target.checked)}
-                className="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-400"
-              />
+              <label className="flex items-center p-2 border rounded w-full h-[44px] cursor-pointer focus-within:ring-2 hover:ring-blue-400">
+                <input
+                  type="checkbox"
+                  checked={oneBySetup}
+                  onChange={(e) => setOneBySetup(e.target.checked)}
+                  className="w-6 h-6 text-blue-600 border-gray-300 rounded hover:ring-blue-400"
+                />
+                <span className="ml-3 text-gray-700 text-base">Enable 1x setup</span>
+              </label>
             </div>
           </div>
           <div className="flex justify-center mt-4">
@@ -299,7 +307,7 @@ export default function Home() {
             )}
           </button>
           </div>
-        </div>
+        </div> 
 
         {/* Gear Usage Summary (Text-Based) */}
         <div className="bg-white shadow-lg rounded-xl p-6 overflow-x-auto">
@@ -338,38 +346,7 @@ export default function Home() {
               </div>
             </div>
           )}
-        {/* Short Explanation Section */}
-        <div className="bg-gray-50 p-4 rounded-lg shadow-md mt-6">
-        <h3 className="text-xl font-bold mb-2 text-center text-gray-700">Gear Zone Classification</h3>
-        <p className="text-gray-700">
-          Gears are grouped into zones based on their alignment and efficiency:
-        </p>
-        <ul className="list-disc pl-5 text-gray-700">
-          <li>
-            <strong>Red Zone:</strong> Extreme cross-chaining positions (worst efficiency).
-          </li>
-          <li>
-            <strong>Orange Zone:</strong> Near extremes of the cassette. Acceptable but not ideal.
-          </li>
-          <li>
-            <strong>Green Zone:</strong> Middle gears with good chain alignment. Most efficient for drivetrain performance.
-          </li>
-        </ul>
-        <p className="text-gray-700 mt-2">
-          Logic adapts based on 1x or 2x setups and cassette size. Based on&nbsp;
-          <a
-            href="https://cdn.shopify.com/s/files/1/0726/7542/6606/files/cross-chaining-and-ring-size-report.pdf?v=1687253624"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-600 underline"
-          >
-            this study on cross-chaining and drivetrain losses
-          </a>.
-        </p>
-      </div>
-
-
-
+        <Explanation/>
         </div>
         {gearAnalysis.length > 0 ? (
           <GearUsageTable
