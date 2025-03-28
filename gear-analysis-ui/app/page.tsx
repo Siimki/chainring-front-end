@@ -16,6 +16,7 @@ import { ClipLoader } from "react-spinners"; // a small spinner library (optiona
 import GearUsageTable from "./summaryTable";
 import CassetteData from "./CassetteData";
 import Explanation from "./explanation"; 
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
@@ -368,6 +369,7 @@ export default function Home() {
           </div>
         )}
       </div>
+      <SpeedInsights />
     </main>
   );
 }
