@@ -328,7 +328,27 @@ export default function Home() {
           )}
 
           {/* Zone Summary (Text-Based) */}
-          {zoneSummary && (
+         
+        </div>
+        {gearAnalysis.length > 0 ? (
+          <GearUsageTable
+            gearData={gearAnalysis}
+            cassetteTeeth={CassetteData[cassette]} // make sure CassetteData is imported
+            isOneBySetup={oneBySetup}
+          />
+        ) : (
+          <p className="text-gray-500 text-center">
+          </p>
+        )}
+
+        {/* Gear Usage Visualization */}
+        {gearAnalysis.length > 0 && (
+          <div className="bg-white shadow-lg rounded-xl p-6">
+            <h2 className="text-2xl font-bold text-center mb-4">Gear Usage Visualizations</h2>
+            <GearUsageBarChart gearData={gearAnalysis} />
+          </div>
+        )}
+         {(zoneSummary) ? (
             <div className="mt-6 mx-auto max-w-md p-4 bg-gray-100 rounded">
               <h3 className="text-xl font-bold mb-2 text-center text-gray-700">Zone Summary</h3>
               <div className="space-y-1 text-gray-700">
@@ -346,28 +366,15 @@ export default function Home() {
                 </p>
               </div>
             </div>
-          )}
+          ) : (
+              <p className="text-gray-500 text-center">
+              </p>
+            )}
+          
         <Explanation/>
-        </div>
-        {gearAnalysis.length > 0 ? (
-          <GearUsageTable
-            gearData={gearAnalysis}
-            cassetteTeeth={CassetteData[cassette]} // make sure CassetteData is imported
-            isOneBySetup={oneBySetup}
-          />
-        ) : (
-          <p className="text-gray-500 text-center">
-            Your gear usage summary will appear here after analysis.
-          </p>
-        )}
 
-        {/* Gear Usage Visualization */}
-        {gearAnalysis.length > 0 && (
-          <div className="bg-white shadow-lg rounded-xl p-6">
-            <h2 className="text-2xl font-bold text-center mb-4">Gear Usage Visualizations</h2>
-            <GearUsageBarChart gearData={gearAnalysis} />
-          </div>
-        )}
+
+
       </div>
       <SpeedInsights />
     </main>
