@@ -19,7 +19,7 @@ function Explanation() {
             </li>
         </ul>
         <p className="text-gray-700 mt-2">
-            Logic adapts based on 1x or 2x setups and cassette size. Based on&nbsp;
+            Floorlight logic is based on&nbsp;
             <a
                 href="https://cdn.shopify.com/s/files/1/0726/7542/6606/files/cross-chaining-and-ring-size-report.pdf?v=1687253624"
                 target="_blank"

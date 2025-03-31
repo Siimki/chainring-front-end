@@ -7,7 +7,7 @@ interface GearUsageTableProps {
   isOneBySetup: boolean;
 }
 
-const GearUsageTable: React.FC<GearUsageTableProps> = ({ gearData, cassetteTeeth, isOneBySetup }) => {
+const GearUsageTable = ({ gearData, cassetteTeeth, isOneBySetup }: GearUsageTableProps) => {
   const classifyZone = (
     frontTeeth: number,
     rearTeeth: number,
@@ -38,6 +38,7 @@ const GearUsageTable: React.FC<GearUsageTableProps> = ({ gearData, cassetteTeeth
       if (pos === len - 3 || pos === len - 2 || pos == len -8) return "orange";
       return "green";
     }
+
   };
 
   const getZoneColor = (zone: "red" | "orange" | "green") => {
@@ -70,6 +71,10 @@ const GearUsageTable: React.FC<GearUsageTableProps> = ({ gearData, cassetteTeeth
         </thead>
         <tbody className="divide-y divide-gray-200">
           {gearData.map((gear, idx) => {
+            if (gear.rear_teeth === 0) {
+              gear.rear_teeth = "Unknown"
+              gear.gear = "Unknown"
+            }
             const zone = classifyZone(
               parseInt(gear.front_teeth),
               parseInt(gear.rear_teeth),

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -16,8 +15,9 @@ import { ClipLoader } from "react-spinners"; // a small spinner library (optiona
 import GearUsageTable from "./summaryTable";
 import CassetteData from "./CassetteData";
 import Explanation from "./explanation"; 
+import Instructions from "./instructions";
+import InputFields from "./inputFields";
 import { SpeedInsights } from "@vercel/speed-insights/next"
-
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -28,39 +28,6 @@ const parsePercentage = (percentageStr: string | number): number => {
   }
   return Number(percentageStr);
 };
-
-// Horizontal bar chart for gear usage
-function GearUsageBarChart({ gearData }: { gearData: any[] }) {
-  const labels = gearData.map((gear) => `Gear ${gear.gear}`);
-  const usageData = gearData.map((gear) => parsePercentage(gear.usage_percentage));
-
-  const chartData = {
-    labels,
-    datasets: [
-      {
-        label: "Usage Percentage",
-        data: usageData,
-        backgroundColor: "rgba(54, 162, 235, 0.5)",
-      },
-    ],
-  };
-
-  const options = {
-    indexAxis: "y" as const,
-    responsive: true,
-    plugins: {
-      legend: {
-        position: "top" as const,
-      },
-      title: {
-        display: true,
-        text: "Gear Usage Percentage",
-      },
-    },
-  };
-
-  return <Bar data={chartData} options={options} />;
-}
 
 // Cassette dropdown options
 const cassetteOptions = [
@@ -174,30 +141,7 @@ export default function Home() {
           </p>
           
           {/* Instructions */}
-          <div className="mb-4 p-4 border rounded bg-gray-50">
-            <h2 className="text-xl font-semibold mb-2 text-gray-500">Input Instructions</h2>
-            <ul className="list-disc pl-5 text-gray-700 space-y-1x">
-              <li>
-                <strong>Big Chainring:</strong> Big chainring size.
-              </li>
-              <li>
-                <strong>Small Chainring:</strong> Small chainring size.
-              </li>
-              <li>
-                <strong>Cassette:</strong> Choose from the list.
-              </li>
-              <li>
-                <strong>Min Power:</strong> If you want to have data only where power is higher than 100 watts, use 100 as value.
-              </li>
-              <li>
-                <strong>Min Cadence:</strong> If you want to have data only where cadence is higher than 20 rpm, use 20 as value. 
-              </li>
-              <li>
-                <strong>1 x setup:</strong> Add your chainring size to big chainring field.
-              </li>
-            </ul>
-          </div>
-
+          <Instructions/>
           {/* File Input */}
           <div className="mb-4">
             <label className="block text-gray-700 font-medium mb-1">Upload FIT File</label>
@@ -218,82 +162,20 @@ export default function Home() {
           </div>
 
           {/* Input Fields */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-            <div>
-              <label className="block text-gray-700 font-medium mb-1">
-                Big Chainring (e.g. 53)
-              </label>
-              <input
-                type="text"
-                value={bigChainring}
-                onChange={(e) => setBigChainring(e.target.value)}
-                className="w-full text-gray-700 p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
-              />
-            </div>
-            <div>
-              <label className="block text-gray-700 font-medium mb-1">
-                Small Chainring (e.g. 39)
-              </label>
-              <input
-                type="text"
-                value={smallChainring}
-                onChange={(e) => setSmallChainring(e.target.value)}
-                className="w-full p-2 text-gray-700 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
-              />
-            </div>
-            <div>
-              <label className="block text-gray-700 font-medium mb-1">
-                Cassette
-              </label>
-              <select
-                value={cassette}
-                onChange={(e) => setCassette(e.target.value)}
-                className="w-full p-2 text-gray-700 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
-              >
-                {cassetteOptions.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label className="block text-gray-700 font-medium mb-1">
-                Min Power (optional, default 0)
-              </label>
-              <input
-                type="text"
-                value={minPower}
-                onChange={(e) => setMinPower(e.target.value)}
-                className="w-full p-2 border text-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
-              />
-            </div>
-            <div>
-              <label className="block text-gray-700 font-medium mb-1">
-                Min Cadence (optional, default 0)
-              </label>
-              <input
-                type="text"
-                value={minCadence}
-                onChange={(e) => setMinCadence(e.target.value)}
-                className="w-full p-2 border text-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
-              />
-            </div>
-            <div>
-              <label className="block text-gray-700 font-medium mb-1">
-                1x Setup? (optional, default is 2x)
-              </label>
-              <label className="flex items-center p-2 border rounded w-full h-[44px] cursor-pointer focus-within:ring-2 hover:ring-blue-400">
-                <input
-                  type="checkbox"
-                  checked={oneBySetup}
-                  onChange={(e) => setOneBySetup(e.target.checked)}
-                  className="w-6 h-6 text-blue-600 border-gray-300 rounded hover:ring-blue-400"
-                />
-                <span className="ml-3 text-gray-700 text-base">Enable 1x setup</span>
-              </label>
-            </div>
-          </div>
+          <InputFields
+            bigChainring={bigChainring}
+            setBigChainring={setBigChainring}
+            smallChainring={smallChainring}
+            setSmallChainring={setSmallChainring}
+            cassette={cassette}
+            setCassette={setCassette}
+            minPower={minPower}
+            setMinPower={setMinPower}
+            minCadence={minCadence}
+            setMinCadence={setMinCadence}
+            oneBySetup={oneBySetup}
+            setOneBySetup={setOneBySetup}
+            cassetteOptions={cassetteOptions}/>
           <div className="flex justify-center mt-4">
           <button
             onClick={handleUpload}
@@ -309,45 +191,21 @@ export default function Home() {
           </div>
         </div> 
 
-        {/* Gear Usage Summary (Text-Based) */}
-        <div className="bg-white shadow-lg rounded-xl p-6 overflow-x-auto">
+          {/* Zone Summary  */}
+          <div className="bg-white shadow-lg rounded-xl p-6 overflow-x-auto">
           <h2 className="text-2xl font-bold text-center mb-4 text-gray-700">Gear Usage Summary</h2>
-          {formattedOutput.length > 0 ? (
-            <div className="space-y-2">
-              {formattedOutput.map((line, index) => (
-                <p key={index} className="text-gray-700 whitespace-pre-wrap">
-                  {line}
-                </p>
-              ))}
-            </div>
+          {gearAnalysis.length > 0 ? (
+            <GearUsageTable
+              gearData={gearAnalysis}
+              cassetteTeeth={CassetteData[cassette]} // make sure CassetteData is imported
+              isOneBySetup={oneBySetup}
+            />
           ) : (
             <p className="text-gray-500 text-center">
               Your gear usage summary will appear here after analysis.
             </p>
           )}
-
-          {/* Zone Summary (Text-Based) */}
-         
-        </div>
-        {gearAnalysis.length > 0 ? (
-          <GearUsageTable
-            gearData={gearAnalysis}
-            cassetteTeeth={CassetteData[cassette]} // make sure CassetteData is imported
-            isOneBySetup={oneBySetup}
-          />
-        ) : (
-          <p className="text-gray-500 text-center">
-          </p>
-        )}
-
-        {/* Gear Usage Visualization */}
-        {gearAnalysis.length > 0 && (
-          <div className="bg-white shadow-lg rounded-xl p-6">
-            <h2 className="text-2xl font-bold text-center mb-4">Gear Usage Visualizations</h2>
-            <GearUsageBarChart gearData={gearAnalysis} />
-          </div>
-        )}
-         {(zoneSummary) ? (
+           {(zoneSummary) ? (
             <div className="mt-6 mx-auto max-w-md p-4 bg-gray-100 rounded">
               <h3 className="text-xl font-bold mb-2 text-center text-gray-700">Zone Summary</h3>
               <div className="space-y-1 text-gray-700">
@@ -370,10 +228,26 @@ export default function Home() {
               </p>
             )}
           
+        </div>
+
+        {/* Gear Usage Summary (Text-Based) */}
+        {/* <div className="bg-white shadow-lg rounded-xl p-6 overflow-x-auto">
+          <h2 className="text-2xl font-bold text-center mb-4 text-gray-700">Gear Usage Summary</h2>
+          {formattedOutput.length > 0 ? (
+            <div className="space-y-2">
+              {formattedOutput.map((line, index) => (
+                <p key={index} className="text-gray-700 whitespace-pre-wrap">
+                  {line}
+                </p>
+              ))}
+            </div>
+          ) : (
+            <p className="text-gray-500 text-center">
+              Your gear usage summary will appear here after analysis.
+            </p>
+          )}
+        </div> */}    
         <Explanation/>
-
-
-
       </div>
       <SpeedInsights />
     </main>
