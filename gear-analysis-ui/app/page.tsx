@@ -18,6 +18,7 @@ import Explanation from "./explanation";
 import Instructions from "./instructions";
 import InputFields from "./inputFields";
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import Head from "next/head";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
