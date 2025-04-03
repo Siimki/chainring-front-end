@@ -65,8 +65,8 @@ const GearUsageTable = ({ gearData, cassetteTeeth, isOneBySetup }: GearUsageTabl
             <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">Time</th>
             <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">Usage %</th>
             <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">Avg Speed</th>
-            <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">Cadence</th>
-            <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">Power</th>
+            <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">Avg Cadence</th>
+            <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">Avg Power</th>
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-200">
