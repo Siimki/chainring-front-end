@@ -33,6 +33,22 @@ const parsePercentage = (percentageStr: string | number): number => {
 // Cassette dropdown options
 const cassetteOptions = [
   { value: "12shimano34", label: "12-speed Shimano 11-34" },
+  { value: "12shimano30", label: "12-speed Shimano 11-30" },
+  { value: "11shimano25", label: "11-speed Shimano 11-25" },
+  { value: "11shimano28", label: "11-speed Shimano 11-28" },
+  { value: "11shimano30", label: "11-speed Shimano 11-30" },
+  { value: "11shimano32", label: "11-speed Shimano 11-32" },
+  { value: "11shimano19", label: "11-speed Shimano 12-25" },
+  { value: "11shimano28wide", label: "11-speed Shimano 14-28" },
+  { value: "12sram28", label: "12-speed SRAM 10-28" },
+  { value: "12sram30", label: "12-speed SRAM 10-30" },
+  { value: "12sram33", label: "12-speed SRAM 10-33" },
+  { value: "12sram36", label: "12-speed SRAM 10-36" },
+  { value: "12sram44", label: "12-speed SRAM 10-44" },
+  { value: "12sram46", label: "12-speed SRAM 10-46" },
+  { value: "12sram50", label: "12-speed SRAM 10-50" },
+  { value: "12sram52", label: "12-speed SRAM 10-52" },
+  { value: "13sram46", label: "13-speed SRAM 10-46" },
 ];
 
 export default function Home() {
