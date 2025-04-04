@@ -42,8 +42,11 @@ export const metadata: Metadata = {
     images: ["/preview-image.png"],
   },
   icons: {
-    icon: "/gear.png",
+    icon: [
+      { url: "/favicon.ico", sizes: "32x32", type: "image/png" },
+    ],
   },
+  
 };
 
 export default function RootLayout({
