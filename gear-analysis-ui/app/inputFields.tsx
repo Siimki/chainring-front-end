@@ -57,7 +57,7 @@ const InputFields = ({
       </div>
       <div>
         <label className="block text-gray-700 font-medium mb-1">
-          Cassette
+          Cassette("Currently only shimano 11-34 is color corrected")
         </label>
         <select
           value={cassette}
