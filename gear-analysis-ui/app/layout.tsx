@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     siteName: "GearReport",
     images: [
       {
-        url: "public/preview-image.png",
+        url: "/preview-image.png",
         width: 1200,
         height: 630,
         alt: "GearReport preview",
@@ -39,10 +39,10 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "GearReport – Gear Usage Analyzer",
     description: "Upload your FIT file to analyze drivetrain performance.",
-    images: ["public/preview-image.png"],
+    images: ["/preview-image.png"],
   },
   icons: {
-    icon: "public/gear.png",
+    icon: "/gear.png",
   },
 };
 
