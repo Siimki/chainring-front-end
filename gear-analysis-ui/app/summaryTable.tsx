@@ -26,7 +26,6 @@ const GearUsageTable = ({ gearData, cassetteTeeth, isOneBySetup }: GearUsageTabl
   
     const len = cassetteTeeth.length;
     const pos = uniqueSortedRear.findIndex(teeth => teeth === rearTeeth);
-     console.log(uniqueSortedRear, "unique");
     // console.log(pos, "pos");
      console.log(len, "Len");
     if (isNaN(rearTeeth)) {
@@ -39,9 +38,7 @@ const GearUsageTable = ({ gearData, cassetteTeeth, isOneBySetup }: GearUsageTabl
     // Check if the array contains NaN
     console.log("len is ", len)
     if (uniqueSortedRear.some(teeth => isNaN(teeth))) {
-      console.log("Pink Elephant");
       if (_frontTeeth < 50){
-        console.log("Gei")
         if (pos <= 1 ) {
           return "red"
         } else if (pos <= 2 || pos === len - 2){
@@ -58,12 +55,10 @@ const GearUsageTable = ({ gearData, cassetteTeeth, isOneBySetup }: GearUsageTabl
         if (pos <= 1) {
         return "red"  
         } else {
-          console.log("Iadd orange if front teeth is small");
           if (pos <= 2 || pos === len || pos === len -1) return "orange"; // 3rd lowest, 2nd highest  
         };     // lowest 2, highest
       } else {
         if (pos <= 1 || pos === len -1 ) {
-          console.log("I add redd when big")
           return "red"
         }  else {
           if (pos <= 2 || pos === len - 2 ) return "orange";      // 3rd lowest, 2nd highest
@@ -72,7 +67,7 @@ const GearUsageTable = ({ gearData, cassetteTeeth, isOneBySetup }: GearUsageTabl
     }
     // if (pos <= 1 || pos === len - 1) return "red";     // lowest 2, highest
     // if (pos <= 2 || pos === len - 2) return "orange"; // 3rd lowest, 2nd highest
-
+    console.log("Halleluuja")
     return "green";
   };
   
