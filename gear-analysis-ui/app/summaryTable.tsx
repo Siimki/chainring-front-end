@@ -18,13 +18,17 @@ const GearUsageTable = ({ gearData, cassetteTeeth, isOneBySetup }: GearUsageTabl
     // console.log(_frontTeeth, "is front", rearTeeth, "Is rear")
     const uniqueSortedRear = Array.from(
       new Set(gearData.map(g => parseInt(g.rear_teeth)))
-    ).sort((a, b) => a - b);
+    ).sort((a, b) => {
+      if (isNaN(a)) return 1;
+      if (isNaN(b)) return -1;
+      return a - b;
+    });
   
-    const len = uniqueSortedRear.length;
+    const len = cassetteTeeth.length;
     const pos = uniqueSortedRear.findIndex(teeth => teeth === rearTeeth);
-    // console.log(uniqueSortedRear, "unique");
+     console.log(uniqueSortedRear, "unique");
     // console.log(pos, "pos");
-    // console.log(len, "Len");
+     console.log(len, "Len");
     if (isNaN(rearTeeth)) {
       console.log("rearTeeth is NaN");
       return "red"; // Default to "red" if rearTeeth is NaN
@@ -33,6 +37,7 @@ const GearUsageTable = ({ gearData, cassetteTeeth, isOneBySetup }: GearUsageTabl
     }
 
     // Check if the array contains NaN
+    console.log("len is ", len)
     if (uniqueSortedRear.some(teeth => isNaN(teeth))) {
       console.log("Pink Elephant");
       if (_frontTeeth < 50){
@@ -41,22 +46,28 @@ const GearUsageTable = ({ gearData, cassetteTeeth, isOneBySetup }: GearUsageTabl
           return "red"
         } else if (pos <= 2 || pos === len - 2){
           return "orange"
-        } ; // 3rd lowest, 2nd highest  
+        } ;
       } else {
-        if (pos <= 1 || pos === len - 2) return "red";     // lowest 2, highest
-        if (pos <= 2 || pos === len - 3) return "orange"; // 3rd lowest, 2nd highest
+        if (pos <= 1 || pos === len - 1) {
+        return "red"
+        } ;   
+        if (pos <= 2 || pos === len - 2) return "orange"; // fuji is correct. with -2
       }
-
-    } else {
+     } else {
       if (_frontTeeth < 50){
-        if (pos <= 1 ) {
+        if (pos <= 1) {
         return "red"  
         } else {
-          if (pos <= 2 || pos === len - 1) return "orange"; // 3rd lowest, 2nd highest  
+          console.log("Iadd orange if front teeth is small");
+          if (pos <= 2 || pos === len || pos === len -1) return "orange"; // 3rd lowest, 2nd highest  
         };     // lowest 2, highest
       } else {
-        if (pos <= 1 || pos === len - 1) return "red";     // lowest 2, highest
-        if (pos <= 2 || pos === len - 2) return "orange";      // 3rd lowest, 2nd highest
+        if (pos <= 1 || pos === len -1 ) {
+          console.log("I add redd when big")
+          return "red"
+        }  else {
+          if (pos <= 2 || pos === len - 2 ) return "orange";      // 3rd lowest, 2nd highest
+        }   // lowest 2, highest
       }
     }
     // if (pos <= 1 || pos === len - 1) return "red";     // lowest 2, highest
