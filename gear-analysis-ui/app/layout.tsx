@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://gearreport.vercel.app"),
   openGraph: {
     title: "GearReport – Gear Usage Analyzer",
-    description: "See your gear usage, chain alignment, and drivetrain zones visualized from your FIT ride files.",
+    description: "See your gear usage and drivetrain zones visualized from your FIT ride files.",
     url: "https://gearreport.vercel.app",
     siteName: "GearReport",
     images: [
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "GearReport – Gear Usage Analyzer",
-    description: "Upload your FIT file to analyze drivetrain performance.",
+    description: "Upload your FIT file to analyze drivetrain gear usage.",
     images: ["/preview-image.png"],
   },
   icons: {
