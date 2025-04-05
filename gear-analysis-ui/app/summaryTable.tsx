@@ -15,16 +15,16 @@ const GearUsageTable = ({ gearData, cassetteTeeth, isOneBySetup }: GearUsageTabl
     _oneBySetup: boolean
   ): "red" | "orange" | "green" => {
     // Get all unique rear_teeth values from gearData, sorted ascending
-    console.log(_frontTeeth, "is front", rearTeeth, "Is rear")
+    // console.log(_frontTeeth, "is front", rearTeeth, "Is rear")
     const uniqueSortedRear = Array.from(
       new Set(gearData.map(g => parseInt(g.rear_teeth)))
     ).sort((a, b) => a - b);
   
     const len = uniqueSortedRear.length;
     const pos = uniqueSortedRear.findIndex(teeth => teeth === rearTeeth);
-    console.log(uniqueSortedRear, "unique");
-    console.log(pos, "pos");
-    console.log(len, "Len");
+    // console.log(uniqueSortedRear, "unique");
+    // console.log(pos, "pos");
+    // console.log(len, "Len");
     if (isNaN(rearTeeth)) {
       console.log("rearTeeth is NaN");
       return "red"; // Default to "red" if rearTeeth is NaN
@@ -35,15 +35,30 @@ const GearUsageTable = ({ gearData, cassetteTeeth, isOneBySetup }: GearUsageTabl
     // Check if the array contains NaN
     if (uniqueSortedRear.some(teeth => isNaN(teeth))) {
       console.log("Pink Elephant");
-      if (pos <= 1 || pos === len - 2) return "red";     // lowest 2, highest
-      if (pos <= 2 || pos === len - 3) return "orange"; // 3rd lowest, 2nd highest
-  
+      if (_frontTeeth < 50){
+        console.log("Gei")
+        if (pos <= 1 ) {
+          return "red"
+        } else if (pos <= 2 || pos === len - 2){
+          return "orange"
+        } ; // 3rd lowest, 2nd highest  
+      } else {
+        if (pos <= 1 || pos === len - 2) return "red";     // lowest 2, highest
+        if (pos <= 2 || pos === len - 3) return "orange"; // 3rd lowest, 2nd highest
+      }
+
     } else {
-      if (pos <= 1 || pos === len - 1) return "red";     // lowest 2, highest
-      if (pos <= 2 || pos === len - 2) return "orange"; // 3rd lowest, 2nd highest
-  
+      if (_frontTeeth < 50){
+        if (pos <= 1 ) {
+        return "red"  
+        } else {
+          if (pos <= 2 || pos === len - 1) return "orange"; // 3rd lowest, 2nd highest  
+        };     // lowest 2, highest
+      } else {
+        if (pos <= 1 || pos === len - 1) return "red";     // lowest 2, highest
+        if (pos <= 2 || pos === len - 2) return "orange";      // 3rd lowest, 2nd highest
+      }
     }
-    
     // if (pos <= 1 || pos === len - 1) return "red";     // lowest 2, highest
     // if (pos <= 2 || pos === len - 2) return "orange"; // 3rd lowest, 2nd highest
 
