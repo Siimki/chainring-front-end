@@ -3,6 +3,7 @@ import { useState } from "react";
 function Explanation() {
 
     const[showExamples, setShowExamples] = useState(false);
+    const[showBeta, setShowBeta] = useState(false);
 
     return(
         <div className="bg-gray-50 p-4 rounded-lg shadow-md mt-6">
@@ -32,30 +33,56 @@ function Explanation() {
                 this study on cross-chaining and drivetrain losses
             </a>.
         </p>
+        <div className="mt-4">
+  <div className="flex items-center justify-between">
+    <button
+      onClick={() => setShowExamples(!showExamples)}
+      className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+    >
+      {showExamples ? "Hide Study Examples" : "Show Study Examples"}
+    </button>
 
-        <button
-        onClick={() => setShowExamples(!showExamples)}
-        className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
-        >
-            {showExamples ? "Hide Study Examples" : "Show Study Examples"}
-        </button>
+    <button
+      onClick={() => setShowBeta(!showBeta)}
+      className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+    >
+      {showBeta ? "Hide Chainring Advisor" : "Chainring Advisor"}
+    </button>
+  </div>
 
-        {showExamples && (
-        <>
-          <p className="text-gray-600 mt-4 mb-4">
-            Example screenshots from study showing how chainring sizes and chain angles matter:
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <a href="/alignedChainData.png" target="_blank" rel="noopener noreferrer">
-              <img src="/alignedChainData.png" alt="Efficiency vs Chainline" className="rounded shadow" />
-            </a>
-            <a href="/offsetChainData.png" target="_blank" rel="noopener noreferrer">
-              <img src="/offsetChainData.png" alt="Efficiency vs Gear Size" className="rounded shadow" />
-            </a>
-          </div>
-          <p className="text-sm text-gray-500 mt-2">Source: Friction Facts / CeramicSpeed</p>
-        </>
-      )}
+  {/* Show Study Examples */}
+  {showExamples && (
+    <div className="mt-4">
+      <p className="text-gray-600 mb-4">
+        Example screenshots from study showing how chainring sizes and chain angles matter:
+      </p>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <a href="/alignedChainData.png" target="_blank" rel="noopener noreferrer">
+          <img src="/alignedChainData.png" alt="Efficiency vs Chainline" className="rounded shadow" />
+        </a>
+        <a href="/offsetChainData.png" target="_blank" rel="noopener noreferrer">
+          <img src="/offsetChainData.png" alt="Efficiency vs Gear Size" className="rounded shadow" />
+        </a>
+      </div>
+      <p className="text-sm text-gray-500 mt-2">Source: Friction Facts / CeramicSpeed</p>
+    </div>
+  )}
+
+  {/* Show Beta Section */}
+  {showBeta && (
+    <div className="mt-6">
+<p className="text-gray-600 mb-4">
+Example screenshot from testing the chainring advisor. It simulates your ride with different front chainrings by matching gear ratios to your original data. Not ready nor super accurate, but it is kinda promising.
+</p>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <a href="/chainringAdvisor.png" target="_blank" rel="noopener noreferrer">
+          <img src="/chainringAdvisor.png" alt="Chainring advisor" className="rounded shadow" />
+        </a>
+      </div>
+    </div>
+  )}
+</div>
+
     </div>
     )
 }
