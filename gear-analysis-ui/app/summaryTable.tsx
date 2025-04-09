@@ -70,11 +70,7 @@ const GearUsageTable = ({ gearData, cassetteTeeth, isOneBySetup }: GearUsageTabl
     console.log("Halleluuja")
     return "green";
   };
-  
-  function resetColors() {
-    document.getElementsByTagName("H1")[0].removeAttribute("class");
 
-  }
 
   const getZoneColor = (zone: "red" | "orange" | "green") => {
     switch (zone) {
