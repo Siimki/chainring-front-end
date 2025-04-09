@@ -199,7 +199,10 @@ export default function Home() {
           <p className="text-center text-gray-600 mb-4">
             Upload a FIT file and provide chainring/cassette details to analyze your ride gear usage.
           </p>
-          
+          <div className="hidden">
+            bg-green-100 bg-orange-100 bg-red-100
+            text-green-800 text-orange-800 text-red-800
+          </div>
           {/* Instructions */}
           <Instructions/>
           {/* File Input */}
