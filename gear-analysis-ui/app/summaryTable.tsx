@@ -11,31 +11,19 @@ const GearUsageTable = ({ gearData, cassetteTeeth, isOneBySetup }: GearUsageTabl
   const classifyZone = (
     _frontTeeth: number,
     rearTeeth: number,
+    uniqueSortedRear: number[],
     _cassetteTeeth: number[],
     _oneBySetup: boolean
   ): "red" | "orange" | "green" => {
-    // Get all unique rear_teeth values from gearData, sorted ascending
-    // console.log(_frontTeeth, "is front", rearTeeth, "Is rear")
-    const uniqueSortedRear = Array.from(
-      new Set(
-        gearData
-          .map(g => parseInt(g.rear_teeth))
-          .filter(n => !isNaN(n)) // ← only keep valid numbers
-      )
-    ).sort((a, b) => {
-      if (isNaN(a)) return 1;
-      if (isNaN(b)) return -1;
-      return a - b;
-    });
 
-    console.log("gearData:", gearData.map(g => g.rear_teeth));
-    console.log("Parsed rear_teeths:", gearData.map(g => parseInt(g.rear_teeth)));
-    console.log("uniqueSortedRear:", uniqueSortedRear);
+    // console.log("gearData:", gearData.map(g => g.rear_teeth));
+    // console.log("Parsed rear_teeths:", gearData.map(g => parseInt(g.rear_teeth)));
+    // console.log("uniqueSortedRear:", uniqueSortedRear);
   
-    const len = cassetteTeeth.length;
+    const len = uniqueSortedRear.length;
     const pos = uniqueSortedRear.findIndex(teeth => teeth === rearTeeth);
 
-    console.log(`Analyzing front:${_frontTeeth} rear:${rearTeeth} → pos:${pos}, cassetteLen:${len}`);
+    // console.log(`Analyzing front:${_frontTeeth} rear:${rearTeeth} → pos:${pos}, cassetteLen:${len}`);
 
     // console.log(pos, "pos");
     if (isNaN(rearTeeth)) {
@@ -90,6 +78,14 @@ const GearUsageTable = ({ gearData, cassetteTeeth, isOneBySetup }: GearUsageTabl
     }
   };
 
+  const parsedSortedRear = Array.from(
+    new Set(
+      gearData
+        .map(g => parseInt(g.rear_teeth))
+        .filter(n => !isNaN(n))
+    )
+  ).sort((a, b) => a - b);
+
   return (
     <div className="overflow-x-auto">
       
@@ -108,22 +104,27 @@ const GearUsageTable = ({ gearData, cassetteTeeth, isOneBySetup }: GearUsageTabl
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-200">
+          
           {gearData.map((gear, idx) => {
-            if (gear.rear_teeth === 0) {
-              gear.rear_teeth = "Unknown"
-              gear.gear = "Unknown"
-            }
-            const zone = classifyZone(
-              parseInt(gear.front_teeth),
-              parseInt(gear.rear_teeth),
-              cassetteTeeth,
-              isOneBySetup
-            );
+            const parsedRear = parseInt(gear.rear_teeth);
+            const isUnknown = parsedRear === 0;
+          
+            const displayRear = isUnknown ? "Unknown" : `${gear.rear_teeth}T`;
+            const displayGear = isUnknown ? "Unknown" : gear.gear;
+            const zone = isUnknown
+              ? "green"
+              : classifyZone(
+                  parseInt(gear.front_teeth),
+                  parsedRear,
+                  parsedSortedRear,
+                  cassetteTeeth,
+                  isOneBySetup
+                );
             return (
               <tr key={idx} className={`${getZoneColor(zone)} hover:brightness-105`}>
-                <td className="px-4 py-2 text-sm font-mono">{gear.gear}</td>
+                <td className="px-4 py-2 text-sm font-mono">{displayGear}</td>
                 <td className="px-4 py-2 text-sm">{gear.front_teeth}T</td>
-                <td className="px-4 py-2 text-sm">{gear.rear_teeth}T</td>
+                <td className="px-4 py-2 text-sm">{displayRear}T</td>
                 <td className="px-4 py-2 text-sm">{gear.gear_ratio}</td>
                 <td className="px-4 py-2 text-sm">{gear.total_time}</td>
                 <td className="px-4 py-2 text-sm">{gear.usage_percentage}</td>
