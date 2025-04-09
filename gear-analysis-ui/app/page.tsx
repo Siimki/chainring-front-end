@@ -63,6 +63,7 @@ export default function Home() {
   const [oneBySetup, setOneBySetup] = useState(false);
   const [loading, setLoading] = useState(false);
   const [colorsRemoved, setColorsRemoved] = useState(false);
+  
 
   // Store both raw gear data (for chart) and text summary lines
   const [gearAnalysis, setGearAnalysis] = useState<any[]>([]);
@@ -79,6 +80,21 @@ export default function Home() {
         return;
       }
       setFile(chosenFile);
+    }
+  };
+
+  const handleSampleFileChange = async () => {
+    try {
+      const response = await fetch("/sample.fit"); // sample.fit must be in the /public folder
+      const blob = await response.blob();
+      const chosenFile = new File([blob], "sample.fit", { type: "application/octet-stream" });
+  
+      setFile(chosenFile);
+  
+      toast.success("Sample file loaded!");
+    } catch (error) {
+      console.error("Error loading sample file:", error);
+      toast.error("Could not load the sample file.");
     }
   };
 
@@ -203,6 +219,14 @@ export default function Home() {
                 {file ? file.name : "Choose File"}
               </label>
             </div>
+              {/* ➕ Sample file button */}
+        <button
+          type="button"
+          onClick={handleSampleFileChange}
+          className="cursor-pointer mt-4 px-4 py-2 bg-pink-400 text-white rounded hover:bg-pink-500 transition duration-300 inline-flex items-center"
+          >
+          Use Sample Crit Race File
+        </button>
           </div>
 
           {/* Input Fields */}
@@ -226,6 +250,7 @@ export default function Home() {
             className="p-2 bg-blue-600  text-white rounded hover:bg-blue-700 transition duration-300 disabled:opacity-50 flex justify-center items-center"
             disabled={loading}
           >
+            
             {loading ? (
               <ClipLoader color="#fff" size={20} />
             ) : (
@@ -239,7 +264,7 @@ export default function Home() {
           <div className="bg-white shadow-lg rounded-xl p-6 overflow-x-auto">
           <button
         onClick={toggleColors}
-        className="mb-4 px-4 py-2 bg-blue-500 text-white rounded"
+        className="mb-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition duration-300 disabled:opacity-50"
       >
         {colorsRemoved ? "Restore Color Logic" : "Remove Color Logic"}
       </button>
