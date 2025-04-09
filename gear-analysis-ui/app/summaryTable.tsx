@@ -109,7 +109,7 @@ const GearUsageTable = ({ gearData, cassetteTeeth, isOneBySetup }: GearUsageTabl
             const parsedRear = parseInt(gear.rear_teeth);
             const isUnknown = parsedRear === 0;
           
-            const displayRear = isUnknown ? "Unknown" : `${gear.rear_teeth}T`;
+            const displayRear = isUnknown ? "Unknown" : `${gear.rear_teeth}`;
             const displayGear = isUnknown ? "Unknown" : gear.gear;
             const zone = isUnknown
               ? "green"
