@@ -114,7 +114,11 @@ const GearUsageTable = ({ gearData, cassetteTeeth, isOneBySetup }: GearUsageTabl
               isOneBySetup
             );
             return (
-              <tr key={idx} className={`${getZoneColor(zone)} hover:brightness-105`}>
+                <tr
+                  key={idx}
+                  data-color={zone} // ✅ Enables toggleColors() to work in all environments
+                  className={`${getZoneColor(zone)} hover:brightness-105`}
+                >          
                 <td className="px-4 py-2 text-sm font-mono">{gear.gear}</td>
                 <td className="px-4 py-2 text-sm">{gear.front_teeth}T</td>
                 <td className="px-4 py-2 text-sm">{gear.rear_teeth}T</td>

@@ -102,42 +102,28 @@ export default function Home() {
     const rows = document.querySelectorAll("tbody tr");
   
     rows.forEach(row => {
+      const color = row.getAttribute("data-color");
+  
       if (!colorsRemoved) {
-        // Detect and store background and text color classes
-        const classList = Array.from(row.classList);
-  
-        const bgClass = classList.find(cls =>
-          ["bg-green-100", "bg-orange-100", "bg-red-100"].includes(cls)
-        );
-        const textClass = classList.find(cls =>
-          ["text-green-800", "text-orange-800", "text-red-800"].includes(cls)
-        );
-  
-        if (bgClass) {
-          row.setAttribute("data-original-bg", bgClass);
-          row.classList.remove(bgClass);
-        }
-        if (textClass) {
-          row.setAttribute("data-original-text", textClass);
-          row.classList.remove(textClass);
+        if (color) {
+          row.setAttribute("data-original-bg", `bg-${color}-100`);
+          row.setAttribute("data-original-text", `text-${color}-800`);
+          row.classList.remove(`bg-${color}-100`);
+          row.classList.remove(`text-${color}-800`);
         }
       } else {
-        // Restore classes from data attributes
-        const bgClass = row.getAttribute("data-original-bg");
-        const textClass = row.getAttribute("data-original-text");
+        const originalBg = row.getAttribute("data-original-bg");
+        const originalText = row.getAttribute("data-original-text");
   
-        if (bgClass) {
-          row.classList.add(bgClass);
-          row.removeAttribute("data-original-bg");
-        }
-        if (textClass) {
-          row.classList.add(textClass);
-          row.removeAttribute("data-original-text");
-        }
+        if (originalBg) row.classList.add(originalBg);
+        if (originalText) row.classList.add(originalText);
+  
+        row.removeAttribute("data-original-bg");
+        row.removeAttribute("data-original-text");
       }
     });
   
-    setColorsRemoved(prev => !prev);
+    setColorsRemoved(!colorsRemoved);
   };
   
 
@@ -203,6 +189,12 @@ export default function Home() {
           <p className="text-center text-gray-600 mb-4">
             Upload a FIT file and provide chainring/cassette details to analyze your ride gear usage.
           </p>
+          {/* Hidden classes */}
+          <div className="hidden">
+            bg-green-100 bg-orange-100 bg-red-100
+            text-green-800 text-orange-800 text-red-800
+          </div>
+          
           {/* Instructions */}
           <Instructions/>
           {/* File Input */}
