@@ -98,47 +98,47 @@ export default function Home() {
     }
   };
 
-  // const toggleColors = () => {
-  //   const rows = document.querySelectorAll("tbody tr");
+  const toggleColors = () => {
+    const rows = document.querySelectorAll("tbody tr");
   
-  //   rows.forEach(row => {
-  //     if (!colorsRemoved) {
-  //       // Detect and store background and text color classes
-  //       const classList = Array.from(row.classList);
+    rows.forEach(row => {
+      if (!colorsRemoved) {
+        // Detect and store background and text color classes
+        const classList = Array.from(row.classList);
   
-  //       const bgClass = classList.find(cls =>
-  //         ["bg-green-100", "bg-orange-100", "bg-red-100"].includes(cls)
-  //       );
-  //       const textClass = classList.find(cls =>
-  //         ["text-green-800", "text-orange-800", "text-red-800"].includes(cls)
-  //       );
+        const bgClass = classList.find(cls =>
+          ["bg-green-100", "bg-orange-100", "bg-red-100"].includes(cls)
+        );
+        const textClass = classList.find(cls =>
+          ["text-green-800", "text-orange-800", "text-red-800"].includes(cls)
+        );
   
-  //       if (bgClass) {
-  //         row.setAttribute("data-original-bg", bgClass);
-  //         row.classList.remove(bgClass);
-  //       }
-  //       if (textClass) {
-  //         row.setAttribute("data-original-text", textClass);
-  //         row.classList.remove(textClass);
-  //       }
-  //     } else {
-  //       // Restore classes from data attributes
-  //       const bgClass = row.getAttribute("data-original-bg");
-  //       const textClass = row.getAttribute("data-original-text");
+        if (bgClass) {
+          row.setAttribute("data-original-bg", bgClass);
+          row.classList.remove(bgClass);
+        }
+        if (textClass) {
+          row.setAttribute("data-original-text", textClass);
+          row.classList.remove(textClass);
+        }
+      } else {
+        // Restore classes from data attributes
+        const bgClass = row.getAttribute("data-original-bg");
+        const textClass = row.getAttribute("data-original-text");
   
-  //       if (bgClass) {
-  //         row.classList.add(bgClass);
-  //         row.removeAttribute("data-original-bg");
-  //       }
-  //       if (textClass) {
-  //         row.classList.add(textClass);
-  //         row.removeAttribute("data-original-text");
-  //       }
-  //     }
-  //   });
+        if (bgClass) {
+          row.classList.add(bgClass);
+          row.removeAttribute("data-original-bg");
+        }
+        if (textClass) {
+          row.classList.add(textClass);
+          row.removeAttribute("data-original-text");
+        }
+      }
+    });
   
-  //   setColorsRemoved(prev => !prev);
-  // };
+    setColorsRemoved(prev => !prev);
+  };
   
 
 
@@ -265,12 +265,12 @@ export default function Home() {
 
           {/* Zone Summary  */}
           <div className="bg-white shadow-lg rounded-xl p-6 overflow-x-auto">
-          {/* <button
-     //   onClick={toggleColors}
+          <button
+        onClick={toggleColors}
         className="mb-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition duration-300 disabled:opacity-50"
       >
         {colorsRemoved ? "Restore Color Logic" : "Remove Color Logic"} 
-      </button> */}
+      </button>
 
           <h2 className="text-2xl font-bold text-center mb-4 text-gray-700">Gear Usage Summary</h2>
           {gearAnalysis.length > 0 ? (
