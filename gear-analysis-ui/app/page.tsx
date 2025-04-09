@@ -189,12 +189,10 @@ export default function Home() {
           <p className="text-center text-gray-600 mb-4">
             Upload a FIT file and provide chainring/cassette details to analyze your ride gear usage.
           </p>
-          {/* Hidden classes */}
           <div className="hidden">
             bg-green-100 bg-orange-100 bg-red-100
             text-green-800 text-orange-800 text-red-800
           </div>
-          
           {/* Instructions */}
           <Instructions/>
           {/* File Input */}
@@ -257,12 +255,12 @@ export default function Home() {
 
           {/* Zone Summary  */}
           <div className="bg-white shadow-lg rounded-xl p-6 overflow-x-auto">
-          <button
+          {/* <button
         onClick={toggleColors}
         className="mb-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition duration-300 disabled:opacity-50"
       >
         {colorsRemoved ? "Restore Color Logic" : "Remove Color Logic"} 
-      </button>
+      </button> */}
 
           <h2 className="text-2xl font-bold text-center mb-4 text-gray-700">Gear Usage Summary</h2>
           {gearAnalysis.length > 0 ? (

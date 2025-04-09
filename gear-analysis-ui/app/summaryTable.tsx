@@ -23,20 +23,23 @@ const GearUsageTable = ({ gearData, cassetteTeeth, isOneBySetup }: GearUsageTabl
       if (isNaN(b)) return -1;
       return a - b;
     });
+
+    console.log("gearData:", gearData.map(g => g.rear_teeth));
+    console.log("Parsed rear_teeths:", gearData.map(g => parseInt(g.rear_teeth)));
+    console.log("uniqueSortedRear:", uniqueSortedRear);
   
     const len = cassetteTeeth.length;
     const pos = uniqueSortedRear.findIndex(teeth => teeth === rearTeeth);
+
+    console.log(`Analyzing front:${_frontTeeth} rear:${rearTeeth} → pos:${pos}, cassetteLen:${len}`);
+
     // console.log(pos, "pos");
-     console.log(len, "Len");
     if (isNaN(rearTeeth)) {
-      console.log("rearTeeth is NaN");
       return "red"; // Default to "red" if rearTeeth is NaN
     } else {
-      console.log("rearTeeth is valid");
     }
 
     // Check if the array contains NaN
-    console.log("len is ", len)
     if (uniqueSortedRear.some(teeth => isNaN(teeth))) {
       if (_frontTeeth < 50){
         if (pos <= 1 ) {
@@ -67,7 +70,6 @@ const GearUsageTable = ({ gearData, cassetteTeeth, isOneBySetup }: GearUsageTabl
     }
     // if (pos <= 1 || pos === len - 1) return "red";     // lowest 2, highest
     // if (pos <= 2 || pos === len - 2) return "orange"; // 3rd lowest, 2nd highest
-    console.log("Halleluuja")
     return "green";
   };
 
@@ -114,11 +116,7 @@ const GearUsageTable = ({ gearData, cassetteTeeth, isOneBySetup }: GearUsageTabl
               isOneBySetup
             );
             return (
-                <tr
-                  key={idx}
-                  data-color={zone} // ✅ Enables toggleColors() to work in all environments
-                  className={`${getZoneColor(zone)} hover:brightness-105`}
-                >          
+              <tr key={idx} className={`${getZoneColor(zone)} hover:brightness-105`}>
                 <td className="px-4 py-2 text-sm font-mono">{gear.gear}</td>
                 <td className="px-4 py-2 text-sm">{gear.front_teeth}T</td>
                 <td className="px-4 py-2 text-sm">{gear.rear_teeth}T</td>
