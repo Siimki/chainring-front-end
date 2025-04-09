@@ -100,42 +100,46 @@ export default function Home() {
 
   const toggleColors = () => {
     const rows = document.querySelectorAll("tbody tr");
-
+  
     rows.forEach(row => {
-      const bgClasses = ["bg-green-100", "bg-orange-100", "bg-red-100"];
-      const textClasses = ["text-green-800", "text-orange-800", "text-red-800"];
-
       if (!colorsRemoved) {
-        // Store original background and text color classes
-        const originalBg = bgClasses.find(cls => row.classList.contains(cls));
-        const originalText = textClasses.find(cls => row.classList.contains(cls));
-
-        if (originalBg) {
-          row.setAttribute("data-original-bg", originalBg);
-          row.classList.remove(originalBg);
+        // Detect and store background and text color classes
+        const classList = Array.from(row.classList);
+  
+        const bgClass = classList.find(cls =>
+          ["bg-green-100", "bg-orange-100", "bg-red-100"].includes(cls)
+        );
+        const textClass = classList.find(cls =>
+          ["text-green-800", "text-orange-800", "text-red-800"].includes(cls)
+        );
+  
+        if (bgClass) {
+          row.setAttribute("data-original-bg", bgClass);
+          row.classList.remove(bgClass);
         }
-        if (originalText) {
-          row.setAttribute("data-original-text", originalText);
-          row.classList.remove(originalText);
+        if (textClass) {
+          row.setAttribute("data-original-text", textClass);
+          row.classList.remove(textClass);
         }
       } else {
-        // Restore from data attributes
-        const originalBg = row.getAttribute("data-original-bg");
-        const originalText = row.getAttribute("data-original-text");
-
-        if (originalBg) {
-          row.classList.add(originalBg);
+        // Restore classes from data attributes
+        const bgClass = row.getAttribute("data-original-bg");
+        const textClass = row.getAttribute("data-original-text");
+  
+        if (bgClass) {
+          row.classList.add(bgClass);
           row.removeAttribute("data-original-bg");
         }
-        if (originalText) {
-          row.classList.add(originalText);
+        if (textClass) {
+          row.classList.add(textClass);
           row.removeAttribute("data-original-text");
         }
       }
     });
-
-    setColorsRemoved(!colorsRemoved);
+  
+    setColorsRemoved(prev => !prev);
   };
+  
 
 
   // Handle upload & analysis
@@ -199,10 +203,6 @@ export default function Home() {
           <p className="text-center text-gray-600 mb-4">
             Upload a FIT file and provide chainring/cassette details to analyze your ride gear usage.
           </p>
-          <div className="hidden">
-            bg-green-100 bg-orange-100 bg-red-100
-            text-green-800 text-orange-800 text-red-800
-          </div>
           {/* Instructions */}
           <Instructions/>
           {/* File Input */}
