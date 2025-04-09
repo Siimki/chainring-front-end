@@ -17,7 +17,11 @@ const GearUsageTable = ({ gearData, cassetteTeeth, isOneBySetup }: GearUsageTabl
     // Get all unique rear_teeth values from gearData, sorted ascending
     // console.log(_frontTeeth, "is front", rearTeeth, "Is rear")
     const uniqueSortedRear = Array.from(
-      new Set(gearData.map(g => parseInt(g.rear_teeth)))
+      new Set(
+        gearData
+          .map(g => parseInt(g.rear_teeth))
+          .filter(n => !isNaN(n)) // ← only keep valid numbers
+      )
     ).sort((a, b) => {
       if (isNaN(a)) return 1;
       if (isNaN(b)) return -1;
