@@ -93,7 +93,7 @@ const InputFields = ({
           className="w-full p-2 border text-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
       </div>
-      <div>
+      {/* <div>
         <label className="block text-gray-700 font-medium mb-1">
           1x Setup? (optional, default is 2x)
         </label>
@@ -106,7 +106,7 @@ const InputFields = ({
           />
           <span className="ml-3 text-gray-700 text-base">Enable 1x setup</span>
           </label>
-    </div>
+    </div> */}
   </div> 
 )
 }

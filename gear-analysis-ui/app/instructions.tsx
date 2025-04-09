@@ -22,9 +22,9 @@ return(
   <li>
     <strong>Min Cadence:</strong> If you want to have data only where cadence is higher than 20 rpm, use 20 as value. 
   </li>
-  <li>
+  {/* <li>
     <strong>1 x setup:</strong> Add your chainring size to big chainring field.
-  </li>
+  </li> */}
 </ul>
 </div>
 )

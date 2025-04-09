@@ -30,6 +30,8 @@ const parsePercentage = (percentageStr: string | number): number => {
   return Number(percentageStr);
 };
 
+
+
 // Cassette dropdown options
 const cassetteOptions = [
   { value: "12shimano34", label: "12-speed Shimano 11-34" },
@@ -60,6 +62,7 @@ export default function Home() {
   const [minPower, setMinPower] = useState("0");
   const [oneBySetup, setOneBySetup] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [colorsRemoved, setColorsRemoved] = useState(false);
 
   // Store both raw gear data (for chart) and text summary lines
   const [gearAnalysis, setGearAnalysis] = useState<any[]>([]);
@@ -78,6 +81,46 @@ export default function Home() {
       setFile(chosenFile);
     }
   };
+
+  const toggleColors = () => {
+    const rows = document.querySelectorAll("tbody tr");
+
+    rows.forEach(row => {
+      const bgClasses = ["bg-green-100", "bg-orange-100", "bg-red-100"];
+      const textClasses = ["text-green-800", "text-orange-800", "text-red-800"];
+
+      if (!colorsRemoved) {
+        // Store original background and text color classes
+        const originalBg = bgClasses.find(cls => row.classList.contains(cls));
+        const originalText = textClasses.find(cls => row.classList.contains(cls));
+
+        if (originalBg) {
+          row.setAttribute("data-original-bg", originalBg);
+          row.classList.remove(originalBg);
+        }
+        if (originalText) {
+          row.setAttribute("data-original-text", originalText);
+          row.classList.remove(originalText);
+        }
+      } else {
+        // Restore from data attributes
+        const originalBg = row.getAttribute("data-original-bg");
+        const originalText = row.getAttribute("data-original-text");
+
+        if (originalBg) {
+          row.classList.add(originalBg);
+          row.removeAttribute("data-original-bg");
+        }
+        if (originalText) {
+          row.classList.add(originalText);
+          row.removeAttribute("data-original-text");
+        }
+      }
+    });
+
+    setColorsRemoved(!colorsRemoved);
+  };
+
 
   // Handle upload & analysis
   const handleUpload = async () => {
@@ -194,6 +237,13 @@ export default function Home() {
 
           {/* Zone Summary  */}
           <div className="bg-white shadow-lg rounded-xl p-6 overflow-x-auto">
+          <button
+        onClick={toggleColors}
+        className="mb-4 px-4 py-2 bg-blue-500 text-white rounded"
+      >
+        {colorsRemoved ? "Restore Color Logic" : "Remove Color Logic"}
+      </button>
+
           <h2 className="text-2xl font-bold text-center mb-4 text-gray-700">Gear Usage Summary</h2>
           {gearAnalysis.length > 0 ? (
             <GearUsageTable

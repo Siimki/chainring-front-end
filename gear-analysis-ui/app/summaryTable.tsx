@@ -71,7 +71,10 @@ const GearUsageTable = ({ gearData, cassetteTeeth, isOneBySetup }: GearUsageTabl
     return "green";
   };
   
-  
+  function resetColors() {
+    document.getElementsByTagName("H1")[0].removeAttribute("class");
+
+  }
 
   const getZoneColor = (zone: "red" | "orange" | "green") => {
     switch (zone) {
@@ -87,6 +90,7 @@ const GearUsageTable = ({ gearData, cassetteTeeth, isOneBySetup }: GearUsageTabl
 
   return (
     <div className="overflow-x-auto">
+      
       <table className="min-w-full divide-y divide-gray-300 border rounded">
         <thead className="bg-gray-100">
           <tr>
