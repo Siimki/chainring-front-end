@@ -110,7 +110,7 @@ const GearUsageTable = ({ gearData, cassetteTeeth, isOneBySetup }: GearUsageTabl
             const parsedRear = parseInt(gear.rear_teeth);
             const isUnknown = parsedRear === 0;
           
-            const displayRear = isUnknown ? "Unknown" : `${gear.rear_teeth}`;
+            const displayRear = isUnknown ? "Unknown" : `${gear.rear_teeth}T`;
             const displayGear = isUnknown ? "Unknown" : gear.gear;
             const zone = isUnknown
               ? "green"
@@ -125,7 +125,7 @@ const GearUsageTable = ({ gearData, cassetteTeeth, isOneBySetup }: GearUsageTabl
               <tr key={idx} className={`${getZoneColor(zone)} hover:brightness-105`}>
                 <td className="px-4 py-2 text-sm font-mono">{displayGear}</td>
                 <td className="px-4 py-2 text-sm">{gear.front_teeth}T</td>
-                <td className="px-4 py-2 text-sm">{displayRear}T</td>
+                <td className="px-4 py-2 text-sm">{displayRear}</td>
                 <td className="px-4 py-2 text-sm">{gear.gear_ratio}</td>
                 <td className="px-4 py-2 text-sm">{gear.total_time}</td>
                 <td className="px-4 py-2 text-sm">{gear.usage_percentage}</td>

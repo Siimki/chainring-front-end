@@ -17,6 +17,7 @@ import CassetteData from "./CassetteData";
 import Explanation from "./explanation"; 
 import Instructions from "./instructions";
 import InputFields from "./inputFields";
+import Privacy from "./privacy"; 
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import Head from "next/head";
 
@@ -63,7 +64,7 @@ export default function Home() {
   const [oneBySetup, setOneBySetup] = useState(false);
   const [loading, setLoading] = useState(false);
   const [colorsRemoved, setColorsRemoved] = useState(false);
-  
+  const [showPrivacy, setShowPrivacy] = useState(false);
 
   // Store both raw gear data (for chart) and text summary lines
   const [gearAnalysis, setGearAnalysis] = useState<any[]>([]);
@@ -318,6 +319,15 @@ export default function Home() {
         </div> */}    
         <Explanation/>
       </div>
+      <footer className="text-center text-sm text-gray-500 mt-10">
+  <button
+    onClick={() => setShowPrivacy(true)}
+    className="underline hover:text-gray-700"
+  >
+    Privacy Notice
+  </button>
+</footer>
+  <Privacy show={showPrivacy} onClose={() => setShowPrivacy(false)}/>
       <SpeedInsights />
     </main>
   );
