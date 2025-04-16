@@ -1,5 +1,6 @@
 // GearUsageTable.tsx
 import React from "react";
+import CassetteData from "./CassetteData";
 
 interface GearUsageTableProps {
   gearData: any[];
@@ -16,13 +17,20 @@ const GearUsageTable = ({ gearData, cassetteTeeth, isOneBySetup }: GearUsageTabl
     _oneBySetup: boolean
   ): "red" | "orange" | "green" => {
 
-    console.log("gearData:", gearData.map(g => g.rear_teeth));
-    console.log("Parsed rear_teeths:", gearData.map(g => parseInt(g.rear_teeth)));
-    console.log("uniqueSortedRear:", uniqueSortedRear);
+    // console.log("Cassette teeth",_cassetteTeeth)
+    // console.log("gearData:", gearData.map(g => g.rear_teeth));
+    // console.log("Parsed rear_teeths:", gearData.map(g => parseInt(g.rear_teeth)));
+    // console.log("uniqueSortedRear:", uniqueSortedRear);
+    if (!_cassetteTeeth.includes(rearTeeth)) {
+      console.warn(`rearTeeth ${rearTeeth} not found in cassette`, _cassetteTeeth);
+      return "red";
+    }
   
-    const len = uniqueSortedRear.length;
-    const pos = uniqueSortedRear.findIndex(teeth => teeth === rearTeeth);
-
+    //const len = uniqueSortedRear.length;
+    const len = _cassetteTeeth.length;
+    // console.log(_cassetteTeeth.length, "AND UNIQUE",  uniqueSortedRear.length)
+    const pos = _cassetteTeeth.findIndex(teeth => teeth === rearTeeth);
+    // console.log("rearteeth", rearTeeth, "And teeth")
     // console.log(`Analyzing front:${_frontTeeth} rear:${rearTeeth} → pos:${pos}, cassetteLen:${len}`);
 
     // console.log(pos, "pos");
@@ -32,7 +40,7 @@ const GearUsageTable = ({ gearData, cassetteTeeth, isOneBySetup }: GearUsageTabl
     }
 
     // Check if the array contains NaN
-    console.log(pos, 'pos', len, 'len', _frontTeeth, "front chain")
+    // console.log(pos, 'pos', len, 'len', _frontTeeth, "front chain")
     if (uniqueSortedRear.some(teeth => isNaN(teeth))) {
       if (_frontTeeth < 50){
         if (pos <= 1 ) {
