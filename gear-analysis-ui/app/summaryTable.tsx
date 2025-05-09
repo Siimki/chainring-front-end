@@ -9,6 +9,21 @@ interface GearUsageTableProps {
 }
 
 const GearUsageTable = ({ gearData, cassetteTeeth, isOneBySetup }: GearUsageTableProps) => {
+  const frontTeethValues = Array.from(
+    new Set(gearData.map(g => parseInt(g.front_teeth)).filter(n => !isNaN(n)))
+  )
+  const sortedFrontTeeth = frontTeethValues.sort((a, b) => a - b);
+  const isTwoBySetup = sortedFrontTeeth.length == 2;
+  let smallestFrontChainring = 0
+  let largestFrontChainring = 0
+  if (!isTwoBySetup) {
+    largestFrontChainring = sortedFrontTeeth[0]
+  } else {
+    smallestFrontChainring = sortedFrontTeeth[0];
+    largestFrontChainring = sortedFrontTeeth[1];
+  }
+
+
   const classifyZone = (
     _frontTeeth: number,
     rearTeeth: number,
@@ -16,7 +31,6 @@ const GearUsageTable = ({ gearData, cassetteTeeth, isOneBySetup }: GearUsageTabl
     _cassetteTeeth: number[],
     _oneBySetup: boolean
   ): "red" | "orange" | "green" => {
-
     // console.log("Cassette teeth",_cassetteTeeth)
     // console.log("gearData:", gearData.map(g => g.rear_teeth));
     // console.log("Parsed rear_teeths:", gearData.map(g => parseInt(g.rear_teeth)));
@@ -25,13 +39,11 @@ const GearUsageTable = ({ gearData, cassetteTeeth, isOneBySetup }: GearUsageTabl
       console.warn(`rearTeeth ${rearTeeth} not found in cassette`, _cassetteTeeth);
       return "red";
     }
-  
-    //const len = uniqueSortedRear.length;
     const len = _cassetteTeeth.length;
     // console.log(_cassetteTeeth.length, "AND UNIQUE",  uniqueSortedRear.length)
     const pos = _cassetteTeeth.findIndex(teeth => teeth === rearTeeth);
     // console.log("rearteeth", rearTeeth, "And teeth")
-    // console.log(`Analyzing front:${_frontTeeth} rear:${rearTeeth} → pos:${pos}, cassetteLen:${len}`);
+     console.log(`Analyzing front:${_frontTeeth} rear:${rearTeeth} → pos:${pos}, cassetteLen:${len}`);
 
     // console.log(pos, "pos");
     if (isNaN(rearTeeth)) {
@@ -40,9 +52,9 @@ const GearUsageTable = ({ gearData, cassetteTeeth, isOneBySetup }: GearUsageTabl
     }
 
     // Check if the array contains NaN
-    // console.log(pos, 'pos', len, 'len', _frontTeeth, "front chain")
+     console.log(pos, 'pos', len, 'len', _frontTeeth, "front chain", isTwoBySetup, "is Two By setup")
     if (uniqueSortedRear.some(teeth => isNaN(teeth))) {
-      if (_frontTeeth < 50){
+      if (_frontTeeth == smallestFrontChainring){
         if (pos <= 1 ) {
           return "red"
         } else if (pos <= 2 || pos === len - 2){
@@ -55,7 +67,7 @@ const GearUsageTable = ({ gearData, cassetteTeeth, isOneBySetup }: GearUsageTabl
         if (pos <= 2 || pos === len - 2) return "orange"; // fuji is correct. with -2
       }
      } else {
-      if (_frontTeeth < 50){
+      if (_frontTeeth == smallestFrontChainring ){
         if (pos <= 3) {
         return "red"  
         } else {
